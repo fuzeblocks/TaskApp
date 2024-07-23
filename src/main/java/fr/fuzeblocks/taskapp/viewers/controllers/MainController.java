@@ -44,6 +44,12 @@ public class MainController {
     protected void deleteNote() {
        removeNote();
     }
+    @FXML
+    protected void parameters() {
+        ViewerManager.getSettingsMenu().show();
+        TaskApplication.getMainStage().hide();
+    }
+
     private int selectedTask() {
         System.out.println("Selected Task");
          return listView.getSelectionModel().getSelectedIndex();
@@ -63,13 +69,16 @@ public class MainController {
     private void removeNote() {
         int selectedIndex = selectedTask();
         if (selectedIndex != -1) {
-            try {
-                TaskSerialization.removeTask(notesList.get(selectedIndex));
-                System.out.println("Remove Task");
+            Task task = notesList.get(selectedIndex);
+           try {
+               if (Main.deleteConfirmation(task)) {
+                   TaskSerialization.removeTask(task);
+                   System.out.println("Remove Task");
+                   notesList.remove(selectedIndex);
+               }
             } catch (IOException e) {
                 Main.showError("Impossible de supprimer la tache !");
             }
-            notesList.remove(selectedIndex);
         }
     }
 

@@ -1,6 +1,5 @@
 package fr.fuzeblocks.taskapp.viewers;
 
-import fr.fuzeblocks.taskapp.Main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,7 +12,6 @@ public class TaskApplication extends Application {
     private static Stage mainStage;
     @Override
     public void start(Stage stage) throws IOException {
-        //Main Screen
         FXMLLoader loader = new FXMLLoader(TaskApplication.class.getResource("/main.fxml"));
         AnchorPane pane = loader.load();
         Scene scene = new Scene(pane,1900,1000);
@@ -27,7 +25,6 @@ public class TaskApplication extends Application {
     }
 
     public static void main(String[] args) {
-        new Main(); //Main class
         launch();
     }
 

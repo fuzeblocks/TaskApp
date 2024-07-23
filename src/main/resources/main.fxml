@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #333;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.fuzeblocks.taskapp.viewers.controllers.MainController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #333;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.fuzeblocks.taskapp.viewers.controllers.MainController">
 
    <!-- Conteneur principal VBox -->
    <children>
-      <VBox alignment="CENTER_LEFT" layoutX="50" layoutY="50" spacing="10" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="50">
+      <VBox alignment="TOP_RIGHT" layoutX="629.0" layoutY="50" prefHeight="39.0" prefWidth="171.0" AnchorPane.leftAnchor="629.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+         <Button alignment="CENTER" contentDisplay="CENTER" onAction="#parameters" prefHeight="24.0" prefWidth="32.0" style="-fx-font-size: 18px;" text="*" />
+      </VBox>
+
+      <VBox alignment="CENTER_LEFT" spacing="10" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="50">
 
          <!-- Titre de la note -->
          <Label style="-fx-font-size: 36px; -fx-text-fill: white;" text="Mes Notes" />
 
          <!-- ListView pour afficher la liste des notes -->
-         <ListView fx:id="listView" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #424242; -fx-font-size: 18px; -fx-text-fill: white;" />
+         <ListView fx:id="listView" minHeight="50.0" minWidth="50.0" prefHeight="350.0" prefWidth="200" style="-fx-background-color: #424242; -fx-font-size: 18px; -fx-text-fill: white;" />
 
          <!-- Boutons pour les actions sur les notes -->
-         <HBox spacing="10">
+         <HBox layoutX="50" layoutY="50" spacing="10">
             <Button onAction="#createTaskMenu" style="-fx-font-size: 18px;" text="Nouvelle Note" />
             <Button onAction="#editNote" style="-fx-font-size: 18px;" text="Éditer Note" />
             <Button onAction="#deleteNote" style="-fx-font-size: 18px;" text="Supprimer Note" />

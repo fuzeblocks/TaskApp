@@ -3,16 +3,13 @@ package fr.fuzeblocks.taskapp.viewers.manager;
 import fr.fuzeblocks.taskapp.Main;
 import fr.fuzeblocks.taskapp.task.Task;
 import fr.fuzeblocks.taskapp.viewers.controllers.EditTaskController;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
 public class ViewerManager {
     private static Stage createTaskMenu;
     private static Stage editTaskMenu;
+    private static Stage settingsMenu;
 
     public static Stage getCreateTaskMenu() {
         if (createTaskMenu == null) {
@@ -53,5 +50,13 @@ public class ViewerManager {
             controller.setTask(task);
         }
         editTaskMenu.show();
+    }
+
+    public static Stage getSettingsMenu() {
+        if (settingsMenu == null) {
+            settingsMenu = Main.createStage("settingsController.fxml", "Edit settings");
+        }
+        System.out.println("Called settingsMenu");
+        return settingsMenu;
     }
 }

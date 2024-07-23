@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import fr.fuzeblocks.taskapp.task.priority.TaskPriority;
 
 import java.sql.Time;
-import java.util.Objects;
 
 public class Task {
     @Expose
@@ -14,15 +13,17 @@ public class Task {
     @Expose
     private String content;
     @Expose
-    private Time lastEdited;
+    private Time lastEdited = new Time(System.currentTimeMillis());
     @Expose
     private Time created;
     @Expose
     private long charsInTask;
     @Expose
-    private TaskPriority priority;
+    private TaskPriority.Priority priority;
+    @Expose
+    private Parameters parameters;
 
-    public Task(String taskName, String subTitle, String content, Time lastEdited, Time created, TaskPriority priority) {
+    public Task(String taskName, String subTitle, String content, Time lastEdited, Time created, TaskPriority.Priority priority, Parameters parameters) {
         this.taskName = taskName;
         this.subTitle = subTitle;
         this.content = content;
@@ -30,6 +31,7 @@ public class Task {
         this.created = created;
         this.charsInTask = content.length();
         this.priority = priority;
+        this.parameters = parameters;
     }
 
     public String getTaskName() {
@@ -81,31 +83,45 @@ public class Task {
         this.charsInTask = charsInTask;
     }
 
-    public TaskPriority getPriority() {
+    public TaskPriority.Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(TaskPriority priority) {
+    public void setPriority(TaskPriority.Priority priority) {
         this.priority = priority;
     }
 
     @Override
     public String toString() {
-        return "Nom de la tache : " + taskName +
-                ", Sous-titre : " + subTitle +
-                 ", Edité le : " + lastEdited +
-                ", Crée le : " + created +
-                ", Nombre de character : " + charsInTask +
-                ", Priorité : " + priority
-                ;
+        return switch (getParameters().getLanguage()) {
+            case FRENCH -> {
+                yield  "Nom de la tache : " + taskName +
+                        ", Sous-titre : " + subTitle +
+                        ", Edité le : " + lastEdited +
+                        ", Crée le : " + created +
+                        ", Nombre de character : " + charsInTask +
+                        ", Priorité : " + TaskPriority.getPriorityTranslation(priority, Parameters.Language.FRENCH);
+
+            }
+            case ENGLISH -> {
+                yield "Name of the task : " + taskName +
+                        ", Sub-title : " + subTitle +
+                        ", Last-edited : " + lastEdited +
+                        ", Created-at : " + created +
+                        ", Character : " + charsInTask +
+                        ", Priority : " + TaskPriority.getPriorityTranslation(priority, Parameters.Language.ENGLISH);
+
+            }
+        };
+
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Task task = (Task) o;
-        return charsInTask == task.charsInTask && Objects.equals(taskName, task.taskName) && Objects.equals(subTitle, task.subTitle) && Objects.equals(content, task.content) && Objects.equals(lastEdited, task.lastEdited) && Objects.equals(created, task.created) && priority == task.priority;
+    public Parameters getParameters() {
+        return parameters;
     }
+
+    public void setParameters(Parameters parameters) {
+        this.parameters = parameters;
+    }
+
 }

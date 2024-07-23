@@ -1,56 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.RowConstraints?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fr.fuzeblocks.taskapp.viewers.controllers.EditTaskController"
-            prefHeight="600.0" prefWidth="800.0">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #333;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.fuzeblocks.taskapp.viewers.controllers.EditTaskController">
     <children>
-        <GridPane layoutX="50.0" layoutY="50.0" hgap="10" vgap="10">
+        <GridPane hgap="10" layoutX="50.0" layoutY="50.0" vgap="10">
             <columnConstraints>
-                <ColumnConstraints halignment="RIGHT"/>
-                <ColumnConstraints hgrow="ALWAYS"/>
+                <ColumnConstraints halignment="RIGHT" />
+                <ColumnConstraints hgrow="ALWAYS" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints vgrow="ALWAYS"/>
+                <RowConstraints vgrow="ALWAYS" />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
             </rowConstraints>
 
             <!-- Title -->
-            <Label text="Titre:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-            <TextField fx:id="titleField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <Label text="Titre:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <font>
+               <Font name="System Bold" size="19.0" />
+            </font></Label>
+            <TextField fx:id="titleField" style="-fx-border-color: BLACK;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
             <!-- Subtitle -->
-            <Label text="Sous-titre:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <TextField fx:id="subTitleField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <Label text="Sous-titre:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font></Label>
+            <TextField fx:id="subTitleField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
             <!-- Content -->
-            <Label text="Contenu:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-            <TextArea fx:id="contentField" prefHeight="200.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            <Label text="Contenu:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <font>
+               <Font name="System Bold" size="16.0" />
+            </font></Label>
+            <TextArea fx:id="contentField" prefHeight="200.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
             <!-- Priority -->
-            <Label text="Priorité:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-            <TextField fx:id="priorityField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            <Label text="Priorité:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="3">
+            <font>
+               <Font name="System Bold" size="16.0" />
+            </font></Label>
+            <ChoiceBox fx:id="priorityBox" onMouseClicked="#priorityBoxClicked" prefHeight="25.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
             <!-- Last Edited -->
-            <Label text="Dernière modification:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-            <Label fx:id="lastEditedLabel" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+            <Label text="Dernière modification:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="4">
+            <font>
+               <Font name="System Bold" size="16.0" />
+            </font></Label>
+            <Label fx:id="lastEditedLabel" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
             <!-- Created -->
-            <Label text="Créé:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-            <Label fx:id="createdLabel" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+            <Label text="Créé:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="5">
+            <font>
+               <Font name="System Bold" size="16.0" />
+            </font></Label>
+            <Label fx:id="createdLabel" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
             <!-- Buttons -->
-            <Button text="Sauvegarder" onAction="#saveTask" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-            <Button text="Annuler" onAction="#cancelEdit" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+            <Button onAction="#saveTask" text="Sauvegarder" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+            <Button onAction="#cancelEdit" text="Annuler" GridPane.columnIndex="1" GridPane.rowIndex="6" />
         </GridPane>
     </children>
 </AnchorPane>

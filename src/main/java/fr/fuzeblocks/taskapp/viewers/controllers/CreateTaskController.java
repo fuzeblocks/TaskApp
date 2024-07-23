@@ -1,8 +1,9 @@
 package fr.fuzeblocks.taskapp.viewers.controllers;
 
 import fr.fuzeblocks.taskapp.Main;
+import fr.fuzeblocks.taskapp.task.Parameters;
 import fr.fuzeblocks.taskapp.task.Task;
-import fr.fuzeblocks.taskapp.task.priority.TaskPriority;
+import fr.fuzeblocks.taskapp.task.priority.TaskPriority.Priority;
 import fr.fuzeblocks.taskapp.task.serialization.TaskDeserialization;
 import fr.fuzeblocks.taskapp.task.serialization.TaskSerialization;
 import fr.fuzeblocks.taskapp.viewers.TaskApplication;
@@ -26,21 +27,21 @@ public class CreateTaskController {
     @FXML
     protected Button coralButton; //Event
 
-    protected TaskPriority taskPriority = TaskPriority.LOW; //Default TaskPriority
+    protected Priority taskPriority = Priority.LOW; //Default TaskPriority
 
     @FXML
     protected void initialize() {
         //Button Event
         greenButton.setOnAction(event -> {
-            taskPriority = TaskPriority.LOW;
+            taskPriority = Priority.LOW;
         });
 
         yellowButton.setOnAction(event -> {
-            taskPriority = TaskPriority.MEDIUM;
+            taskPriority = Priority.MEDIUM;
         });
 
         coralButton.setOnAction(event -> {
-            taskPriority = TaskPriority.HIGH;
+            taskPriority = Priority.HIGH;
         });
     }
 
@@ -58,7 +59,7 @@ public class CreateTaskController {
             Main.showError("Vous devez definir un titre !");
             return;
         }
-        Task task = new Task(String.valueOf(title.getCharacters()),String.valueOf(subTitle.getCharacters()),"",null,new Time(System.currentTimeMillis()),taskPriority);
+        Task task = new Task(String.valueOf(title.getCharacters()),String.valueOf(subTitle.getCharacters()),"",new Time(System.currentTimeMillis()),new Time(System.currentTimeMillis()),taskPriority,new Parameters(Parameters.Language.FRENCH));
         TaskDeserialization.addTask(task);
         MainController.updateTasks(task);
         try {
@@ -68,14 +69,14 @@ public class CreateTaskController {
         }
         title.clear();
         subTitle.clear();
-        taskPriority = TaskPriority.LOW;
+        taskPriority = Priority.LOW;
         TaskApplication.getMainStage().show();
         ViewerManager.getCreateTaskMenu().hide();
     }
     private void cancelAndHideCreateMenu() {
         if (title != null && !title.getCharacters().isEmpty()) title.clear();
         if (subTitle != null && !subTitle.getCharacters().isEmpty()) subTitle.clear();
-        taskPriority = TaskPriority.LOW;
+        taskPriority = Priority.LOW;
         TaskApplication.getMainStage().show();
         ViewerManager.getCreateTaskMenu().hide();
 
