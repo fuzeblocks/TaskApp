@@ -2,15 +2,36 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.text.Font?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="fr.fuzeblocks.taskapp.viewers.controllers.SettingsController"
             prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #333;">
-    <Label text="Language:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0">
-        <font>
-            <Font name="System Bold" size="19.0" />
-        </font></Label>
-    <ChoiceBox fx:id="languageBox" onMouseClicked="#languageBox" prefHeight="25.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+    <AnchorPane.topAnchor>50.0</AnchorPane.topAnchor>
+    <AnchorPane.leftAnchor>50.0</AnchorPane.leftAnchor>
+    <AnchorPane.rightAnchor>50.0</AnchorPane.rightAnchor>
+    <AnchorPane.bottomAnchor>50.0</AnchorPane.bottomAnchor>
+    <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="NEVER"/>
+            <RowConstraints vgrow="NEVER"/>
+            <RowConstraints vgrow="NEVER"/>
+        </rowConstraints>
+
+        <!-- Language Label -->
+        <Label text="Language:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <font>
+                <Font name="System Bold" size="19.0"/>
+            </font>
+        </Label>
+
+        <!-- Language ChoiceBox -->
+        <ChoiceBox fx:id="languageBox" onMouseClicked="#languageBox" prefHeight="25.0" prefWidth="400.0"
+                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    </GridPane>
 </AnchorPane>

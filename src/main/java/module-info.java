@@ -3,6 +3,8 @@ module fr.fuzeblocks.taskapp {
     requires javafx.fxml;
     requires com.google.gson;
     requires java.sql;
+    requires java.datatransfer;
+    requires java.desktop;
 
     opens fr.fuzeblocks.taskapp to javafx.fxml;
     opens fr.fuzeblocks.taskapp.task to com.google.gson;

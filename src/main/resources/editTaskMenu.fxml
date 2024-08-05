@@ -1,71 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #333;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.fuzeblocks.taskapp.viewers.controllers.EditTaskController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #2e2e2e;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.fuzeblocks.taskapp.viewers.controllers.EditTaskController">
+    <padding>
+        <Insets bottom="30" left="30" right="30" top="30" />
+    </padding>
     <children>
-        <GridPane hgap="10" layoutX="50.0" layoutY="50.0" vgap="10">
+        <GridPane alignment="TOP_CENTER" hgap="15" vgap="15">
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
             <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" />
+                <ColumnConstraints halignment="RIGHT" minWidth="120" />
                 <ColumnConstraints hgrow="ALWAYS" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints vgrow="ALWAYS" />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
+                <RowConstraints vgrow="NEVER" />
+                <RowConstraints vgrow="NEVER" />
+                <RowConstraints vgrow="NEVER" />
+                <RowConstraints vgrow="NEVER" />
+                <RowConstraints vgrow="NEVER" />
+                <RowConstraints vgrow="NEVER" />
+                <RowConstraints vgrow="NEVER" />
             </rowConstraints>
 
             <!-- Title -->
             <Label text="Titre:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0">
-            <font>
-               <Font name="System Bold" size="19.0" />
-            </font></Label>
-            <TextField fx:id="titleField" style="-fx-border-color: BLACK;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <font>
+                    <Font name="System Bold" size="20.0" />
+                </font>
+            </Label>
+            <TextField fx:id="titleField" style="-fx-border-color: #555; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #444; -fx-text-fill: white;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
             <!-- Subtitle -->
             <Label text="Sous-titre:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1">
-            <font>
-               <Font name="System Bold" size="14.0" />
-            </font></Label>
-            <TextField fx:id="subTitleField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font>
+            </Label>
+            <TextField fx:id="subTitleField" style="-fx-text-fill: white; -fx-border-color: #555; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #444;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
             <!-- Content -->
             <Label text="Contenu:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="2">
-            <font>
-               <Font name="System Bold" size="16.0" />
-            </font></Label>
-            <TextArea fx:id="contentField" prefHeight="200.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font>
+            </Label>
+            <TextArea fx:id="contentField" prefHeight="200.0" prefWidth="400.0" style=".text-area {
+    -fx-background-color: #444;
+    -fx-control-inner-background: #444;
+    -fx-text-fill: white;
+    -fx-border-color: #555;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-            <!-- Priority -->
             <Label text="Priorité:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="3">
-            <font>
-               <Font name="System Bold" size="16.0" />
-            </font></Label>
-            <ChoiceBox fx:id="priorityBox" onMouseClicked="#priorityBoxClicked" prefHeight="25.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <font>
+                    <Font name="System Bold" size="16.0"/>
+                </font>
+            </Label>
+            <ChoiceBox fx:id="priorityBox" onMouseClicked="#priorityBoxClicked" prefHeight="25.0" prefWidth="400.0" style=" -fx-background-color: #444;
+    -fx-border-color: #555;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-text-fill: white;" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
             <!-- Last Edited -->
             <Label text="Dernière modification:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="4">
-            <font>
-               <Font name="System Bold" size="16.0" />
-            </font></Label>
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font>
+            </Label>
             <Label fx:id="lastEditedLabel" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
             <!-- Created -->
             <Label text="Créé:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="5">
-            <font>
-               <Font name="System Bold" size="16.0" />
-            </font></Label>
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font>
+            </Label>
             <Label fx:id="createdLabel" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
             <!-- Buttons -->
-            <Button onAction="#saveTask" text="Sauvegarder" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-            <Button onAction="#cancelEdit" text="Annuler" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                <Button onAction="#saveTask" style="-fx-background-color: #5cb85c; -fx-text-fill: white; -fx-background-radius: 5;" text="Sauvegarder" />
+                <Button onAction="#cancelEdit" style="-fx-background-color: #d9534f; -fx-text-fill: white; -fx-background-radius: 5;" text="Annuler" />
+            </HBox>
         </GridPane>
     </children>
 </AnchorPane>

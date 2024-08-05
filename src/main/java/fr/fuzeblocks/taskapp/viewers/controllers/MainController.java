@@ -26,7 +26,7 @@ public class MainController {
     protected void initialize() {
         //Show the Tasks
         listView.setItems(notesList);
-        notesList.addAll(TaskDeserialization.getTasksWithoutContent());
+        notesList.addAll(TaskDeserialization.getTasksWithoutContent(TaskDeserialization.getFilteredTaskList(TaskDeserialization.getTasks())));
     }
 
     @FXML
@@ -82,13 +82,8 @@ public class MainController {
         }
     }
 
-    public static void updateTasks(Task task) {
-        if (!notesList.contains(task)) {
-            notesList.add(task);
-        } else {
-            notesList.remove(task);
-            notesList.add(task);
-        }
-
+    public static void updateTasks() {
+        notesList.clear();
+        notesList.addAll(TaskDeserialization.getTasksWithoutContent(TaskDeserialization.getFilteredTaskList(TaskDeserialization.getTasks())));
     }
 }

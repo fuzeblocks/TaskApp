@@ -67,7 +67,7 @@ public class EditTaskController {
             TaskDeserialization.addTask(task);
             try {
                 TaskSerialization.saveTask(TaskDeserialization.getTasks());
-                MainController.updateTasks(task);
+                MainController.updateTasks();
                 clearFields();
                 ViewerManager.getEditTaskMenu().hide();
                 TaskApplication.getMainStage().show();

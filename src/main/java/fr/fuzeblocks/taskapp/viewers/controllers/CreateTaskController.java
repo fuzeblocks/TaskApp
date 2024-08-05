@@ -61,7 +61,7 @@ public class CreateTaskController {
         }
         Task task = new Task(String.valueOf(title.getCharacters()),String.valueOf(subTitle.getCharacters()),"",new Time(System.currentTimeMillis()),new Time(System.currentTimeMillis()),taskPriority,new Parameters(Parameters.Language.FRENCH));
         TaskDeserialization.addTask(task);
-        MainController.updateTasks(task);
+        MainController.updateTasks();
         try {
             TaskSerialization.saveTask(TaskDeserialization.getTasks());
         } catch (IOException e) {

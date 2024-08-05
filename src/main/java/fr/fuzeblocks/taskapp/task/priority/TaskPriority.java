@@ -1,5 +1,6 @@
 package fr.fuzeblocks.taskapp.task.priority;
 
+import fr.fuzeblocks.taskapp.Main;
 import fr.fuzeblocks.taskapp.task.Parameters;
 import fr.fuzeblocks.taskapp.task.Parameters.*;
 import fr.fuzeblocks.taskapp.task.Task;
@@ -45,6 +46,9 @@ public class TaskPriority {
                 .map(Map.Entry::getKey)
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Unknown priority: " + name));
+    }
+    public static Priority getPriority(String name) {
+       return getPriority(name, Main.getParameters().getLanguage());
     }
 
     public enum Priority {

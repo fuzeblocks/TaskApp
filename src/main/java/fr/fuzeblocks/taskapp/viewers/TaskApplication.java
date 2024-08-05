@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class TaskApplication extends Application {
@@ -14,7 +15,10 @@ public class TaskApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(TaskApplication.class.getResource("/main.fxml"));
         AnchorPane pane = loader.load();
-        Scene scene = new Scene(pane,1900,1000);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double width = screenSize.getWidth();
+        double height = screenSize.getHeight();
+        Scene scene = new Scene(pane,width,height);
         mainStage = stage;
         stage.setTitle("TaskAPP");
         stage.setScene(scene);

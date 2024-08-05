@@ -12,6 +12,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
@@ -58,7 +60,7 @@ public class Main {
         if (result.isPresent() && result.get().equals(ButtonType.OK)) {
             return true;
         } else {
-            MainController.updateTasks(task);
+            MainController.updateTasks();
             alert.close();
             return false;
         }
@@ -71,7 +73,10 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Scene scene = new Scene(pane,1900,1000);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double width = screenSize.getWidth();
+        double height = screenSize.getHeight();
+        Scene scene = new Scene(pane,width,height);
         Stage stage = new Stage();
         stage.setTitle(title);
         stage.getProperties().put("controller", loader.getController());
