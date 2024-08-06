@@ -29,6 +29,12 @@ jobs:
     - name: List files in target directory
       run: ls -l target
 
+    - name: Get project version
+      id: get_version
+      run: |
+        VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
