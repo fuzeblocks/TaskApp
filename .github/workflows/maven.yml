@@ -35,13 +35,10 @@ jobs:
         VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
-    - name: Set up GitHub CLI
-      uses: cli/gh-action@v2
-      with:
-        version: latest
-
     - name: Create Release using gh CLI
-      run: |
-        gh release create "v${{ github.run_number }}" target/TaskApp-${{ env.VERSION }}.jar --title "Release v${{ github.run_number }}" --notes "Automatically created release"
+      uses: docker://ghcr.io/cli/gh:latest
+      with:
+        entrypoint: /bin/sh
+        args: -c "gh auth login --with-token < $GITHUB_TOKEN && gh release create v${{ github.run_number }} target/TaskApp-${{ env.VERSION }}.jar --title 'Release v${{ github.run_number }}' --notes 'Automatically created release'"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
