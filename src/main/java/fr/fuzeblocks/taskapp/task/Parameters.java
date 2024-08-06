@@ -2,6 +2,7 @@ package fr.fuzeblocks.taskapp.task;
 
 import com.google.gson.annotations.Expose;
 
+
 public class Parameters {
     @Expose
     private Language language = Language.ENGLISH;

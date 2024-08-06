@@ -1,6 +1,7 @@
 package fr.fuzeblocks.taskapp.viewers.controllers;
 
 import fr.fuzeblocks.taskapp.Main;
+import fr.fuzeblocks.taskapp.language.LanguageManager;
 import fr.fuzeblocks.taskapp.task.Task;
 import fr.fuzeblocks.taskapp.task.serialization.TaskDeserialization;
 import fr.fuzeblocks.taskapp.task.serialization.TaskSerialization;
@@ -9,25 +10,41 @@ import fr.fuzeblocks.taskapp.viewers.manager.ViewerManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-
-public class MainController {
+public class MainController implements Initializable {
 
     private static ObservableList<Task> notesList = FXCollections.observableArrayList(); //Observable Task (showedList)
 
     @FXML
     private ListView<Task> listView;
-
-
     @FXML
-    protected void initialize() {
-        //Show the Tasks
-        listView.setItems(notesList);
+    private Label noteLabel;
+    @FXML
+    private Button createTaskButton;
+    @FXML
+    private Button editTaskButton;
+    @FXML
+    private Button deleteTaskButton;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        String key = "MainMenu.";
+        noteLabel.setText(Main.getLanguageManager().getString(key + "Title"));
+        createTaskButton.setText(Main.getLanguageManager().getString(key + "CreateTaskButton"));
+        editTaskButton.setText(Main.getLanguageManager().getString(key + "EditTaskButton"));
+        deleteTaskButton.setText(Main.getLanguageManager().getString(key + "DeleteTaskButton"));
         notesList.addAll(TaskDeserialization.getTasksWithoutContent(TaskDeserialization.getFilteredTaskList(TaskDeserialization.getTasks())));
+        listView.setItems(notesList);
     }
+
 
     @FXML
     protected void createTaskMenu() {
@@ -83,7 +100,12 @@ public class MainController {
     }
 
     public static void updateTasks() {
+        if (!notesList.isEmpty()) {
+            System.out.println("Before : " + notesList.size() + " : " + TaskDeserialization.getTasks().size());
+        }
         notesList.clear();
+        System.out.println("Size : " + TaskDeserialization.getTasksWithoutContent(TaskDeserialization.getFilteredTaskList(TaskDeserialization.getTasks())).size());
         notesList.addAll(TaskDeserialization.getTasksWithoutContent(TaskDeserialization.getFilteredTaskList(TaskDeserialization.getTasks())));
+        System.out.println("After : " + notesList.size() + " : " + TaskDeserialization.getTasks().size());
     }
 }

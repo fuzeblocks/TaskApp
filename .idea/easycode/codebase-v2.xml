@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/src/main/java/fr/fuzeblocks/taskapp/language/LanguageManager.java;F:/Dev/TaskApp/src/main/java/fr/fuzeblocks/taskapp/task/priority/TaskPriority.java;F:/Dev/TaskApp/src/main/java/fr/fuzeblocks/taskapp/task/serialization/TaskDeserialization.java;F:/Dev/TaskApp/src/main/java/fr/fuzeblocks/taskapp/task/serialization/TaskSerialization.java;F:/Dev/TaskApp/src/main/java/fr/fuzeblocks/taskapp/task/Parameters.java;F:/Dev/TaskApp/src/main/java/fr/fuzeblocks/taskapp/task/Task.java;F:/Dev/TaskApp/src/main/java/fr/fuzeblocks/taskapp/viewers/controllers/CreateTaskController.java;F:/Dev/TaskApp/src/main/java/fr/fuzeblocks/taskapp/viewers/controllers/EditTaskController.java;F:/Dev/TaskApp/src/main/java/fr/fuzeblocks/taskapp/viewers/controllers/MainController.java;F:/Dev/TaskApp/src/main/java/fr/fuzeblocks/taskapp/viewers/controllers/SettingsController.java;F:/Dev/TaskApp/src/main/java/fr/fuzeblocks/taskapp/viewers/manager/ViewerManager.java;F:/Dev/TaskApp/src/main/java/fr/fuzeblocks/taskapp/viewers/TaskApplication.java;F:/Dev/TaskApp/src/main/java/fr/fuzeblocks/taskapp/Main.java;F:/Dev/TaskApp/src/main/java/module-info.java;F:/Dev/TaskApp/pom.xml" />
+  </component>
+</project>

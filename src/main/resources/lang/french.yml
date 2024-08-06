@@ -1,0 +1,27 @@
+CreateTaskMenu:
+  HaveNoTitle: "Vous devez définir un titre !"
+  Title: "Titre"
+  SubTitle: "Sous-titre"
+  Priority: "Priorité"
+  CreateTaskButton: "Crée la tache"
+  CancelCreateTaskButton: "Annuler"
+DeleteTaskMenu:
+  DeleteTaskConfirmation: "Etes-vous sure de vouloir supprimer : %taskname% ?"
+MainMenu:
+  Title: "Menu des taches"
+  CreateTaskButton: "Nouvelle tache"
+  EditTaskButton: "Editer une tache"
+  DeleteTaskButton: "Supprimer une tache"
+EditTaskMenu:
+  Title: "Titre"
+  SubTitle: "Sous-Titre"
+  Content: "Contenu"
+  Priority: "Priorité"
+  LastEdited: "Dernière modification"
+  Created: "Créé"
+  SaveTaskButton: "Sauvegarder"
+  CancelEditButton: "Annuler"
+Priority:
+  High: "Haut"
+  Medium: "Moyen"
+  Low: "Faible"

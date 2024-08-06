@@ -3,8 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #333;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.fuzeblocks.taskapp.viewers.controllers.MainController">
+<!-- Message from the creator, the style was done by ChatGPT because I don't know FXML in any way. On the other hand all the code was written by me and is my intellectual property. Thanks -->
 
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #333;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.fuzeblocks.taskapp.viewers.controllers.MainController">
    <!-- Conteneur principal VBox -->
    <children>
       <VBox alignment="TOP_RIGHT" layoutX="629.0" layoutY="50" prefHeight="39.0" prefWidth="171.0" AnchorPane.leftAnchor="629.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
@@ -14,16 +15,16 @@
       <VBox alignment="CENTER_LEFT" spacing="10" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="50">
 
          <!-- Titre de la note -->
-         <Label style="-fx-font-size: 36px; -fx-text-fill: white;" text="Mes Notes" />
+         <Label fx:id="noteLabel" style="-fx-font-size: 36px; -fx-text-fill: white;"/>
 
          <!-- ListView pour afficher la liste des notes -->
          <ListView fx:id="listView" minHeight="50.0" minWidth="50.0" prefHeight="350.0" prefWidth="200" style="-fx-background-color: #424242; -fx-font-size: 18px; -fx-text-fill: white;" />
 
          <!-- Boutons pour les actions sur les notes -->
          <HBox layoutX="50" layoutY="50" spacing="10">
-            <Button onAction="#createTaskMenu" style="-fx-font-size: 18px;" text="Nouvelle Note" />
-            <Button onAction="#editNote" style="-fx-font-size: 18px;" text="Éditer Note" />
-            <Button onAction="#deleteNote" style="-fx-font-size: 18px;" text="Supprimer Note" />
+            <Button fx:id="createTaskButton" onAction="#createTaskMenu" style="-fx-font-size: 18px;" text="Nouvelle Note" />
+            <Button fx:id="editTaskButton" onAction="#editNote" style="-fx-font-size: 18px;" text="Éditer Note" />
+            <Button fx:id="deleteTaskButton" onAction="#deleteNote" style="-fx-font-size: 18px;" text="Supprimer Note" />
          </HBox>
       </VBox>
    </children>

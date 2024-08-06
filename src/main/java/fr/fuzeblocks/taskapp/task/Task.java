@@ -90,6 +90,17 @@ public class Task {
     public void setPriority(TaskPriority.Priority priority) {
         this.priority = priority;
     }
+    public Parameters getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(Parameters parameters) {
+        this.parameters = parameters;
+    }
+
+    public Task clone(Task task) {
+        return new Task(task.getTaskName(),task.getSubTitle(),task.getContent(),task.getLastEdited(),task.getCreated(),task.getPriority(),task.getParameters());
+    }
 
     @Override
     public String toString() {
@@ -114,14 +125,6 @@ public class Task {
             }
         };
 
-    }
-
-    public Parameters getParameters() {
-        return parameters;
-    }
-
-    public void setParameters(Parameters parameters) {
-        this.parameters = parameters;
     }
 
 }

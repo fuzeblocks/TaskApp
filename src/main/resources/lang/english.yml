@@ -1,0 +1,27 @@
+CreateTaskMenu:
+  HaveNoTitle: "Please add a title !"
+  Title: "Title"
+  SubTitle: "Sub-title"
+  Priority: "Priority"
+  CreateTaskButton: "Create task"
+  CancelCreateTaskButton: "Cancel"
+DeleteTaskMenu:
+  DeleteTaskConfirmation: "Are you sure you want delete : %taskname% ?"
+MainMenu:
+  Title: "Tasks Menu"
+  CreateTaskButton: "New Task"
+  EditTaskButton: "Edit task"
+  DeleteTaskButton: "Delete task"
+EditTaskMenu:
+  Title: "Title"
+  SubTitle: "Sub-title"
+  Content: "Content"
+  Priority: "Priority"
+  LastEdited: "Last modification"
+  Created: "Created"
+  SaveTaskButton: "Save"
+  CancelEditButton: "Cancel"
+Priority:
+  High: "High"
+  Medium: "Medium"
+  Low: "Low"

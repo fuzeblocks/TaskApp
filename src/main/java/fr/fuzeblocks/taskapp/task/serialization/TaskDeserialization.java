@@ -3,6 +3,7 @@ package fr.fuzeblocks.taskapp.task.serialization;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import fr.fuzeblocks.taskapp.Main;
+import fr.fuzeblocks.taskapp.task.Parameters;
 import fr.fuzeblocks.taskapp.task.Task;
 import fr.fuzeblocks.taskapp.task.priority.TaskPriority;
 
@@ -12,11 +13,11 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 public class TaskDeserialization {
-    private static final List<Task> filteredTaskList = new ArrayList<>();
+    private static Set<Task> highTaskSet = new HashSet<>();
+    private static Set<Task> mediumTaskSet = new HashSet<>();
+    private static Set<Task> lowTaskSet = new HashSet<>();
+    private static List<Task> filteredTaskList = new ArrayList<>();
     private static final List<Task> taskList = new ArrayList<>();
-    private static final Set<Task> highTaskSet = new HashSet<>();
-    private static final Set<Task> mediumTaskSet = new HashSet<>();
-    private static final Set<Task> lowTaskSet = new HashSet<>();
 
 
     public static void loadTasks() {
@@ -24,10 +25,14 @@ public class TaskDeserialization {
         try (FileReader fileReader = new FileReader(Main.getSavedTaskFile())) {
             Type taskListType = new TypeToken<List<Task>>() {}.getType();
             List<Task> deserializedTasks = gson.fromJson(fileReader, taskListType);
-            setTasks(deserializedTasks);
+            List<Task> verifiedTasks = checkTasks(deserializedTasks);
+            setTasks(verifiedTasks);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public static boolean isInSelectedLanguage(Task task, Parameters.Language language) {
+        return task.getParameters().getLanguage().equals(language);
     }
 
     public static void addTask(Task task) {
@@ -53,20 +58,36 @@ public class TaskDeserialization {
         }
         return tasksWithoutContent;
     }
+
     public static List<Task> getFilteredTaskList(List<Task> tasks) {
+        highTaskSet.clear();
+        mediumTaskSet.clear();
+        lowTaskSet.clear();
+        filteredTaskList.clear();
         for (Task task : tasks) {
             TaskPriority.Priority priority = task.getPriority();
             switch (priority) {
-                case HIGH -> highTaskSet.add(task);
-                case MEDIUM -> mediumTaskSet.add(task);
-                case LOW -> lowTaskSet.add(task);
+                case HIGH:
+                    highTaskSet.add(task);
+                    break;
+                case MEDIUM:
+                    mediumTaskSet.add(task);
+                    break;
+                case LOW:
+                    lowTaskSet.add(task);
+                    break;
             }
-            filteredTaskList.clear();
-               filteredTaskList.addAll(highTaskSet.stream().toList());
-              filteredTaskList.addAll(mediumTaskSet.stream().toList());
-              filteredTaskList.addAll(lowTaskSet.stream().toList());
         }
-        return filteredTaskList;
+        if (!highTaskSet.isEmpty()) {
+            setTasksInFilterList(highTaskSet);
+        }
+        if (!mediumTaskSet.isEmpty()) {
+            setTasksInFilterList(mediumTaskSet);
+        }
+        if (!lowTaskSet.isEmpty()) {
+            setTasksInFilterList(lowTaskSet);
+        }
+        return new ArrayList<>(filteredTaskList);
     }
 
     private static void setTasks(List<Task> tasks) {
@@ -78,5 +99,28 @@ public class TaskDeserialization {
                 taskList.add(task);
             }
         }
+    }
+    private static void setTasksInFilterList(Set<Task> taskSet) {
+        for (Task task : taskSet) {
+            filteredTaskList.add(task);
+        }
+    }
+    private static List<Task> checkTasks(List<Task> tasks) {
+        List<Task> correctedTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (!isInSelectedLanguage(task,Main.getParameters().getLanguage())) {
+                Task correctedTask = task.clone(task);
+                correctedTask.getParameters().setLanguage(Main.getParameters().getLanguage());
+                correctedTasks.add(correctedTask);
+            } else {
+                correctedTasks.add(task);
+            }
+        }
+        try {
+            TaskSerialization.saveTask(correctedTasks);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return correctedTasks;
     }
 }

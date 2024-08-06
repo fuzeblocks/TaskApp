@@ -5,6 +5,7 @@ module fr.fuzeblocks.taskapp {
     requires java.sql;
     requires java.datatransfer;
     requires java.desktop;
+    requires org.yaml.snakeyaml;
 
     opens fr.fuzeblocks.taskapp to javafx.fxml;
     opens fr.fuzeblocks.taskapp.task to com.google.gson;

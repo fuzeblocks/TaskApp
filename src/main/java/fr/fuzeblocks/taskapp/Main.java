@@ -1,10 +1,14 @@
 package fr.fuzeblocks.taskapp;
 
+import fr.fuzeblocks.taskapp.configuration.FileConfiguration;
+import fr.fuzeblocks.taskapp.language.LanguageFileRegistry;
+import fr.fuzeblocks.taskapp.language.LanguageManager;
 import fr.fuzeblocks.taskapp.task.Parameters;
 import fr.fuzeblocks.taskapp.task.Task;
 import fr.fuzeblocks.taskapp.task.serialization.TaskDeserialization;
 import fr.fuzeblocks.taskapp.viewers.TaskApplication;
 import fr.fuzeblocks.taskapp.viewers.controllers.MainController;
+import fr.fuzeblocks.taskapp.yaml.Yaml;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -21,17 +25,23 @@ import java.util.Optional;
 public class Main {
     private static File savedTaskFile;
     private static Parameters parameters;
+    private static LanguageManager languageManager;
+    private static FileConfiguration fileConfiguration;
     public static void main(String[] args) {
-        loadLanguage();
         loadFile();
+        loadLanguage();
         TaskDeserialization.loadTasks();
         TaskApplication.main(args);
     }
-    private static void loadLanguage() {
-        parameters = new Parameters(Parameters.Language.ENGLISH);
+    public static void loadLanguage() {
+        LanguageFileRegistry.setLanguageFile(Parameters.Language.FRENCH, new File("src/main/resources/lang/french.yml"));
+        LanguageFileRegistry.setLanguageFile(Parameters.Language.ENGLISH,new File("src/main/resources/lang/english.yml"));
+        parameters = new Parameters(Parameters.Language.valueOf(fileConfiguration.getString("Language")));
+        languageManager = new LanguageManager(LanguageFileRegistry.getFileFromLanguage(parameters.getLanguage()));
     }
-    private static void loadFile() {
+    public static void loadFile() {
         try {
+            fileConfiguration = new FileConfiguration(new File("src/main/resources/config/config.yml"));
             savedTaskFile = new File("SavedTask.task").getCanonicalFile();
             if (!savedTaskFile.exists()) {
                 System.out.println("File created : " + savedTaskFile.createNewFile() + " at " + savedTaskFile.getPath());
@@ -46,16 +56,16 @@ public class Main {
     }
     public static void showError(String error) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erreur : " + error);
+        alert.setTitle("Error : " + error);
         alert.setHeaderText(null);
         alert.setContentText(error);
         alert.showAndWait();
     }
     public static boolean deleteConfirmation(Task task) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Supprimer");
+        alert.setTitle(Main.getLanguageManager().getString("DeleteTaskMenu.DeleteTaskConfirmation").replace("%taskname%", task.getTaskName()));
         alert.setHeaderText(null);
-        alert.setContentText("Voulez-vous vraiment supprimer : " + task.getTaskName() + " ?");
+        alert.setContentText(Main.getLanguageManager().getString("DeleteTaskMenu.DeleteTaskConfirmation").replace("%taskname%", task.getTaskName()));
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get().equals(ButtonType.OK)) {
             return true;
@@ -92,5 +102,13 @@ public class Main {
 
     public static void setParameters(Parameters parameters) {
         Main.parameters = parameters;
+    }
+
+    public static LanguageManager getLanguageManager() {
+        return languageManager;
+    }
+
+    public static FileConfiguration getFileConfiguration() {
+        return fileConfiguration;
     }
 }

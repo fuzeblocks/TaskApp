@@ -9,28 +9,41 @@ import fr.fuzeblocks.taskapp.task.serialization.TaskSerialization;
 import fr.fuzeblocks.taskapp.viewers.TaskApplication;
 import fr.fuzeblocks.taskapp.viewers.manager.ViewerManager;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Time;
+import java.util.ResourceBundle;
 
-public class CreateTaskController {
+public class CreateTaskController implements Initializable {
     @FXML
-    private TextField title; //Title
+    private TextField titleField; //Title
     @FXML
-    protected TextField subTitle; //Sub title
+    private Label titleLabel;
+    @FXML
+    protected TextField subTitleField; //Sub title
+    @FXML
+    private Label subTitleLabel;
     @FXML
     protected Button greenButton; //Event
     @FXML
     protected Button yellowButton; //Event
     @FXML
     protected Button coralButton; //Event
+    @FXML
+    private Label priorityLabel;
+    @FXML
+    private Button createButton;
+    @FXML
+    private Button cancelButton;
 
     protected Priority taskPriority = Priority.LOW; //Default TaskPriority
-
-    @FXML
-    protected void initialize() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         //Button Event
         greenButton.setOnAction(event -> {
             taskPriority = Priority.LOW;
@@ -43,6 +56,15 @@ public class CreateTaskController {
         coralButton.setOnAction(event -> {
             taskPriority = Priority.HIGH;
         });
+        String key = "CreateTaskMenu.";
+        titleLabel.setText(Main.getLanguageManager().getString(key + "Title"));
+        subTitleLabel.setText(Main.getLanguageManager().getString(key + "SubTitle"));
+        priorityLabel.setText(Main.getLanguageManager().getString(key + "Priority"));
+        greenButton.setText(Main.getLanguageManager().getString("Priority.Low"));
+        yellowButton.setText(Main.getLanguageManager().getString("Priority.Medium"));
+        coralButton.setText(Main.getLanguageManager().getString("Priority.High"));
+        createButton.setText(Main.getLanguageManager().getString(key + "CreateTaskButton"));
+        cancelButton.setText(Main.getLanguageManager().getString(key + "CancelCreateTaskButton"));
     }
 
     @FXML
@@ -54,12 +76,13 @@ public class CreateTaskController {
     protected void cancelCreateTask() {
        cancelAndHideCreateMenu();
     }
+
     private void saveAndCreateTask() {
-        if (title == null  || title.getCharacters().isEmpty()) {
-            Main.showError("Vous devez definir un titre !");
+        if (titleField == null  || titleField.getCharacters().isEmpty()) {
+            Main.showError(Main.getLanguageManager().getString("CreateTaskMenu.HaveNoTitle"));
             return;
         }
-        Task task = new Task(String.valueOf(title.getCharacters()),String.valueOf(subTitle.getCharacters()),"",new Time(System.currentTimeMillis()),new Time(System.currentTimeMillis()),taskPriority,new Parameters(Parameters.Language.FRENCH));
+        Task task = new Task(String.valueOf(titleField.getCharacters()),String.valueOf(subTitleField.getCharacters()),"",new Time(System.currentTimeMillis()),new Time(System.currentTimeMillis()),taskPriority,Main.getParameters());
         TaskDeserialization.addTask(task);
         MainController.updateTasks();
         try {
@@ -67,15 +90,15 @@ public class CreateTaskController {
         } catch (IOException e) {
             Main.showError("Impossible d'enregistrer la tache !");
         }
-        title.clear();
-        subTitle.clear();
+        titleField.clear();
+        subTitleField.clear();
         taskPriority = Priority.LOW;
         TaskApplication.getMainStage().show();
         ViewerManager.getCreateTaskMenu().hide();
     }
     private void cancelAndHideCreateMenu() {
-        if (title != null && !title.getCharacters().isEmpty()) title.clear();
-        if (subTitle != null && !subTitle.getCharacters().isEmpty()) subTitle.clear();
+        if (titleField != null && !titleField.getCharacters().isEmpty()) titleField.clear();
+        if (subTitleField != null && !subTitleField.getCharacters().isEmpty()) subTitleField.clear();
         taskPriority = Priority.LOW;
         TaskApplication.getMainStage().show();
         ViewerManager.getCreateTaskMenu().hide();

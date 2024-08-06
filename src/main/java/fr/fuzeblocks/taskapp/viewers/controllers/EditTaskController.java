@@ -1,5 +1,6 @@
 package fr.fuzeblocks.taskapp.viewers.controllers;
 
+import fr.fuzeblocks.taskapp.Main;
 import fr.fuzeblocks.taskapp.task.Task;
 import fr.fuzeblocks.taskapp.task.priority.TaskPriority;
 import fr.fuzeblocks.taskapp.task.priority.TaskPriority.Priority;
@@ -8,15 +9,15 @@ import fr.fuzeblocks.taskapp.task.serialization.TaskSerialization;
 import fr.fuzeblocks.taskapp.viewers.TaskApplication;
 import fr.fuzeblocks.taskapp.viewers.manager.ViewerManager;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Time;
+import java.util.ResourceBundle;
 
-public class EditTaskController {
+public class EditTaskController implements Initializable {
 
     @FXML
     private TextField titleField;
@@ -25,14 +26,42 @@ public class EditTaskController {
     @FXML
     private TextArea contentField;
     @FXML
+    private Label showLastEdited;
+    @FXML
+    private Label showCreatedLabel;
+    @FXML
+    private ChoiceBox priorityBox;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private Label subTitleLabel;
+    @FXML
+    private Label contentLabel;
+    @FXML
+    private Label priorityLabel;
+    @FXML
     private Label lastEditedLabel;
     @FXML
     private Label createdLabel;
     @FXML
-    private ChoiceBox priorityBox;
+    private Button saveTaskButton;
+    @FXML
+    private Button cancelEditButton;
 
     public Task task;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        String key = "EditTaskMenu.";
+        titleLabel.setText(Main.getLanguageManager().getString(key + "Title"));
+        subTitleLabel.setText(Main.getLanguageManager().getString(key + "SubTitle"));
+        contentLabel.setText(Main.getLanguageManager().getString(key + "Content"));
+        priorityLabel.setText(Main.getLanguageManager().getString(key + "Priority"));
+        lastEditedLabel.setText(Main.getLanguageManager().getString(key + "LastEdited"));
+        createdLabel.setText(Main.getLanguageManager().getString(key + "Created"));
+        saveTaskButton.setText(Main.getLanguageManager().getString(key + "SaveTaskButton"));
+        cancelEditButton.setText(Main.getLanguageManager().getString(key + "CancelEditButton"));
+    }
 
     public void setTask(Task task) {
         this.task = task;
@@ -40,8 +69,8 @@ public class EditTaskController {
             titleField.setText(task.getTaskName());
             subTitleField.setText(task.getSubTitle());
             contentField.setText(task.getContent());
-            lastEditedLabel.setText(task.getLastEdited().toString());
-            createdLabel.setText(task.getCreated().toString());
+            showLastEdited.setText(task.getLastEdited().toString());
+            showCreatedLabel.setText(task.getCreated().toString());
             priorityBox.getSelectionModel().select(TaskPriority.getLanguagePriority(task));
         }
     }
@@ -51,8 +80,8 @@ public class EditTaskController {
         subTitleField.clear();
         contentField.clear();
         priorityBox.getItems().clear();
-        createdLabel.setText("");
-        lastEditedLabel.setText("");
+        showCreatedLabel.setText("");
+        showLastEdited.setText("");
     }
 
     @FXML
