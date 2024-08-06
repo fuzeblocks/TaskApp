@@ -25,7 +25,10 @@ public class TaskDeserialization {
         try (FileReader fileReader = new FileReader(Main.getSavedTaskFile())) {
             Type taskListType = new TypeToken<List<Task>>() {}.getType();
             List<Task> deserializedTasks = gson.fromJson(fileReader, taskListType);
-            List<Task> verifiedTasks = checkTasks(deserializedTasks);
+            List<Task> verifiedTasks = deserializedTasks;
+            if (deserializedTasks != null && !deserializedTasks.isEmpty()) {
+               verifiedTasks = checkTasks(deserializedTasks);
+            }
             setTasks(verifiedTasks);
         } catch (IOException e) {
             throw new RuntimeException(e);

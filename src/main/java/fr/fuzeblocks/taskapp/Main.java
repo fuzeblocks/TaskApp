@@ -19,7 +19,10 @@ import javafx.stage.Stage;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.Optional;
 
 public class Main {
@@ -27,21 +30,21 @@ public class Main {
     private static Parameters parameters;
     private static LanguageManager languageManager;
     private static FileConfiguration fileConfiguration;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         loadFile();
         loadLanguage();
         TaskDeserialization.loadTasks();
         TaskApplication.main(args);
     }
-    public static void loadLanguage() {
-        LanguageFileRegistry.setLanguageFile(Parameters.Language.FRENCH, new File("src/main/resources/lang/french.yml"));
-        LanguageFileRegistry.setLanguageFile(Parameters.Language.ENGLISH,new File("src/main/resources/lang/english.yml"));
+    public static void loadLanguage() throws IOException {
+        LanguageFileRegistry.setLanguageFile(Parameters.Language.FRENCH, inputStreamToFile(Main.class.getResourceAsStream("/lang/french.yml"),"french"));
+        LanguageFileRegistry.setLanguageFile(Parameters.Language.ENGLISH,inputStreamToFile(Main.class.getResourceAsStream("/lang/english.yml"),"english"));
         parameters = new Parameters(Parameters.Language.valueOf(fileConfiguration.getString("Language")));
         languageManager = new LanguageManager(LanguageFileRegistry.getFileFromLanguage(parameters.getLanguage()));
     }
     public static void loadFile() {
         try {
-            fileConfiguration = new FileConfiguration(new File("src/main/resources/config/config.yml"));
+            fileConfiguration = new FileConfiguration(inputStreamToFile(Main.class.getResourceAsStream("/config/config.yml"), "config"));
             savedTaskFile = new File("SavedTask.task").getCanonicalFile();
             if (!savedTaskFile.exists()) {
                 System.out.println("File created : " + savedTaskFile.createNewFile() + " at " + savedTaskFile.getPath());
@@ -110,5 +113,18 @@ public class Main {
 
     public static FileConfiguration getFileConfiguration() {
         return fileConfiguration;
+    }
+    private static File inputStreamToFile(InputStream inputStream, String fileName) throws IOException {
+        File tempFile = File.createTempFile(fileName, null);
+        tempFile.deleteOnExit();
+
+        try (FileOutputStream outputStream = new FileOutputStream(tempFile)) {
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        }
+        return tempFile;
     }
 }
