@@ -109,8 +109,20 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>3.6.0</version>
                 <executions>
+                    <execution>
+                    <id>default-cli</id>
+                    <configuration>
+                        <mainClass>fr.fuzeblocks.taskapp.Main</mainClass>
+                        <launcher>app</launcher>
+                        <jlinkZipName>app</jlinkZipName>
+                        <jlinkImageName>app</jlinkImageName>
+                        <noManPages>true</noManPages>
+                        <stripDebug>true</stripDebug>
+                        <noHeaderFiles>true</noHeaderFiles>
+                    </configuration>
+                </execution>
                     <execution>
                         <phase>package</phase>
                         <goals>
